@@ -1,0 +1,32 @@
+Sisteme de operare
+Tema 1 - Mini-shell
+
+Samoila Lavinia Andreea
+333CA
+
+Functia principala este _executeTree_, care primeste ca argument un pointer
+catre arborele creat de parser. In functie de tipul de operator dintre comenzi, 
+parcurge arborele si le executa.
+
+Valoarea intoarsa de executia unei comenzi este trimisa inapoi in sus pe arbore,
+pentru a stii in cazul operatorilor conditionali daca se va rula o comanda sau
+nu. Aceasta se afla folosind functia _wait_.
+
+Daca s-a ajuns intr-o frunza a arborelui, mai intai se verifica daca este o
+comanda interna (cd, exit, quit) pe care o execut daca e cazul. Daca nu e o 
+comanda interna, atunci este o comanda simpla. In primul rand se realizeaza 
+redirectarile indicate, iar apoi folosind _fork_ se executa comanda respectiva.
+
+Functia _forkProcess_ este folosita in cazul pipe-urilor si al operatorului
+paralel. Ea face _fork_ si executa restul arborelui, dar nu asteapta procesele
+copil create.
+
+Pentru operatorul paralel, functiile _wait_ sunt puse abia dupa ce au fost
+create ambele procese copil.
+
+Pentru pipe, tin cont de pozitionarea comenzii fata de | (stanga sau dreapta), 
+pentru a stii care capat al pipe-ului il inchid.
+
+Setarea variabilelor de mediu si expandarea lor o fac pe masura ce parsez
+comenzile.
+
